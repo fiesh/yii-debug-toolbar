@@ -19,12 +19,18 @@ class YiiDebugToolbarRoute extends CLogRoute
 {
 
     public $_panels = array(
-        'YiiDebugToolbarPanelServer',
-        'YiiDebugToolbarPanelRequest',
-        'YiiDebugToolbarPanelSettings',
-        'YiiDebugToolbarPanelViewsRendering',
-        'YiiDebugToolbarPanelSql',
         'YiiDebugToolbarPanelLogging',
+        'YiiDebugToolbarPanelSql',
+        'YiiDebugToolbarPanelRequest',
+        'YiiDebugToolbarPanelViewsRendering',
+        'YiiDebugToolbarPanelAjax',
+        // default below
+//        'YiiDebugToolbarPanelServer',
+//        'YiiDebugToolbarPanelRequest',
+//        'YiiDebugToolbarPanelSettings',
+//        'YiiDebugToolbarPanelViewsRendering',
+//        'YiiDebugToolbarPanelSql',
+//        'YiiDebugToolbarPanelLogging',
     );
 
     /* The filters are given in an array, each filter being:
@@ -34,7 +40,7 @@ class YiiDebugToolbarRoute extends CLogRoute
      * - "*" for everything.
      */
     public $ipFilters=array('127.0.0.1','::1');
-    
+
     /**
      * This is a list of paths to extra panels.
      * Example:
@@ -97,7 +103,7 @@ class YiiDebugToolbarRoute extends CLogRoute
                 'panels'=> $this->panels
             ), $this);
 
-            
+
             if(!empty($this->additionalPanels) and is_array($this->additionalPanels))
             {
                 foreach($this->additionalPanels as $panel)
