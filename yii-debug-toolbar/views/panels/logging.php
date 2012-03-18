@@ -1,4 +1,4 @@
- <?php
+<?php
 $colors=array(
     CLogger::LEVEL_PROFILE=>'#DFFFE0',
     CLogger::LEVEL_INFO=>'#FFFFDF',
@@ -6,6 +6,37 @@ $colors=array(
     CLogger::LEVEL_ERROR=>'#FFC0CB',
 );
 ?>
+
+<?php if ($profileLogs): ?>
+<h4><?php echo YiiDebug::t('Profile Logging'); ?></h4>
+<table id="yii-debug-toolbar-profile-log">
+    <thead>
+    <tr>
+        <th><?php echo YiiDebug::t('Procedure')?></th>
+        <th><?php echo YiiDebug::t('Count')?></th>
+        <th><?php echo YiiDebug::t('Total (s)')?></th>
+        <th><?php echo YiiDebug::t('Avg (s)')?></th>
+        <th><?php echo YiiDebug::t('Min (s)')?></th>
+        <th><?php echo YiiDebug::t('Max (s)')?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($profileLogs as $id=>$entry): ?>
+    <tr class="<?php echo ($id%2?'odd':'even') ?>"
+        <?php if(isset($colors[$entry[1]])) : ?>style=" background:<?php echo $colors[$entry[1]]?>"<?php endif;?>>
+        <td nowrap="nowrap"><?php echo CHtml::encode($entry[0]); ?></td>
+        <td nowrap="nowrap"><?php echo $entry[1]; ?></td>
+        <td nowrap="nowrap"><?php echo sprintf('%0.5f',$entry[4]); ?></td>
+        <td nowrap="nowrap"><?php echo sprintf('%0.5f',$entry[4]/$entry[1]);?></td>
+        <td nowrap="nowrap"><?php echo sprintf('%0.5f',$entry[2]); ?></td>
+        <td nowrap="nowrap"><?php echo sprintf('%0.5f',$entry[3]); ?></td>
+    </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>
+
+<h4><?php echo YiiDebug::t('Logging') . " - " . count($logs) . " logs"; ?></h4>
 <table id="yii-debug-toolbar-log">
     <thead>
         <tr>

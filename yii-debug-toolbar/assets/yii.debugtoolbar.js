@@ -142,6 +142,9 @@
             $('#yii-debug-toolbar .collapsible').bind('click', function(){ yiiDebugToolbar.toggleSection($(this).attr('rel'), this); });
             $('#yii-debug-toolbar .collapsible.collapsed').next().hide();
 
+            // fix for hiding the log messages collapse
+            $("#yii-debug-toolbar-log .collapsible.collapsed").next().show();
+
         },
 
         toggleDetails: function(selector, cell){

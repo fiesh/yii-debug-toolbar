@@ -1,7 +1,7 @@
 <?php
 /**
  * application file.
- * 
+ *
  * Description of application file
  *
  * @author Sergey Malyshev <malyshev.php@gmail.com>
@@ -15,9 +15,9 @@ $index = 1;
 ?>
 
 <?php foreach ($data as $id=>$item) : ?>
-<h4><?php echo YiiDebug::t('Context')?>&nbsp;<?php echo CHtml::encode(get_class($item['context']))?></h4>
+<h4><?php echo $this->getFileAlias($item['sourceFile']) ?></h4>
 <p class="collapsible collapsed">
-    <?php echo $this->getFileAlias($item['sourceFile']) ?>
+    <?php echo YiiDebug::t('Context')?>&nbsp;<?php echo CHtml::encode(get_class($item['context']))?>
 </p>
 
 <div>

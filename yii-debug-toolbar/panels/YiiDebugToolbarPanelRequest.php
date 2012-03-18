@@ -24,7 +24,7 @@ class YiiDebugToolbarPanelRequest extends YiiDebugToolbarPanel
      */
     public function getMenuTitle()
     {
-        return YiiDebug::t('Request');
+        return YiiDebug::t('request');
     }
 
     /**

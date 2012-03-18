@@ -18,7 +18,7 @@
 class YiiDebugToolbarRoute extends CLogRoute
 {
 
-    private $_panels = array(
+    public $_panels = array(
         'YiiDebugToolbarPanelServer',
         'YiiDebugToolbarPanelRequest',
         'YiiDebugToolbarPanelSettings',

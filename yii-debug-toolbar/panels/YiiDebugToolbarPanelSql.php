@@ -20,7 +20,7 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
 {
     /**
      * If true, the sql query in the list will use syntax highlighting.
-     * 
+     *
      * @var boolean
      */
     public $highlightSql = true;
@@ -102,18 +102,16 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
      */
     public function getMenuTitle()
     {
-        return YiiDebug::t('SQL');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMenuSubTitle($f=4)
-    {
         if (false !== $this->_dbConnections)
         {
             $st = Yii::app()->db->getStats();
-            return YiiDebug::t('{n} query in {s} s.|{n} queries in {s} s.', array($st[0], '{s}'=>vsprintf('%0.'.$f.'F', $st[1])));
+
+            // calculate whether to use seconds of milliseconds. use milliseconds if less than .1secs
+            $time = $st[1] >= .1 ? $st[1] : $st[1]*1000;
+            $time = round($time, 2);
+            $timeSuffix = $st[1] >= .1 ? "s" : "ms";
+            $queryTerm = $st[0] == 1 ? "query" : "queries";
+            return "<span>{$st[0]}</span> $queryTerm / <span>{$time}</span>{$timeSuffix}";
         }
         return YiiDebug::t('No active connections');
     }
@@ -207,17 +205,17 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
                 YiiDebug::t('Driver') => $connection->getDriverName(),
                 YiiDebug::t('Server Version') => $connection->getServerVersion()
             );
-            
+
             $lines = explode('  ', $serverInfo);
             foreach($lines as $line) {
                 list($key, $value) = explode(': ', $line, 2);
                 $info[YiiDebug::t($key)] = $value;
             }
-            
+
             if(!empty($info[YiiDebug::t('Uptime')])) {
                 $info[YiiDebug::t('Uptime')] = $this->duration($info[YiiDebug::t('Uptime')]);
             }
-            
+
             return $info;
         }
         return null;
@@ -354,7 +352,7 @@ class YiiDebugToolbarPanelSql extends YiiDebugToolbarPanel
         $sqlStart = strpos($queryString, '(') + 1;
         $sqlEnd = strrpos($queryString , ')');
         $sqlLength = $sqlEnd - $sqlStart;
-        
+
         $queryString = substr($queryString, $sqlStart, $sqlLength);
 
         if (false !== strpos($queryString, '. Bound with '))
