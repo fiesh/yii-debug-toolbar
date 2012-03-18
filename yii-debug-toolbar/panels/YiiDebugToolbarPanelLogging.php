@@ -40,6 +40,7 @@ class YiiDebugToolbarPanelLogging extends YiiDebugToolbarPanel
     {
         $time = round(Yii::getLogger()->getExecutionTime(),2);
         $mem = round(Yii::getLogger()->getMemoryUsage()/1048576,1);
+
         return "<span>$time</span>s / <span>$mem</span>mb";
     }
 
