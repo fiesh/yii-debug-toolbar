@@ -1,4 +1,4 @@
-<div id="yii-debug-toolbar-swither">
+<div id="yii-debug-toolbar-switcher">
     <a href="javascript:void(0)"><?php echo YiiDebug::t('x')?></a>
 </div>
 <div id="yii-debug-toolbar" style="display:none;">
