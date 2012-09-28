@@ -4,15 +4,15 @@
         <tr>
             <th>#</th>
             <th><?php echo Yii::t('yii-debug-toolbar','Query')?></th>
-            <th nowrap="nowrap"><?php echo Yii::t('yii-debug-toolbar','Time (s)')?></th>
+            <th style="white-spaces: no-wrap;"><?php echo Yii::t('yii-debug-toolbar','Time (s)')?></th>
         </tr>
     </thead>
     <tbody>
         <?php foreach($callstack as $id=>$entry):?>
         <tr class="<?php echo ($id%2?'odd':'even') ?><?php echo ($entry[1]>$this->timeLimit?' warning':'') ?>">
             <td class="text-right"><?php echo $id; ?></td>
-            <td width="100%"><?php echo $entry[0]; ?></td>
-            <td nowrap="nowrap">
+            <td style="width: 100%;"><?php echo $entry[0]; ?></td>
+            <td style="white-spaces: no-wrap;">
             <?php echo sprintf('%0.6F',$entry[1]); ?>
             </td>
         </tr>

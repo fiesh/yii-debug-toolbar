@@ -20,7 +20,7 @@
             $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li').bind('click', $.proxy( this.toggleTabs, this ));
             $('.tabscontent').hide();
 
-            var panelId = $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li.active').attr('type');
+            var panelId = $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li.active').attr('id').replace('-toggle', '');
 
             if (typeof panelId !== 'undefined')
             {
@@ -33,7 +33,7 @@
                     $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li').removeClass('active');
                     panelId = section+'-'+$.cookie(section);
                     $('#'+panelId).show();
-                    $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li[type='+panelId+']').addClass('active');
+                    $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li[id='+panelId+']').addClass('active');
                 }
                 else
                 {
@@ -51,7 +51,7 @@
             $('.tabscontent').hide();
             $('#yii-debug-toolbar').find('ul.yii-debug-toolbar-tabs li').removeClass('active');
 
-            var panelId = $target.attr('type');
+            var panelId = $target.attr('id').replace('-toggle', '');
             var path = panelId.split('-');
             var panelName = path.pop();
             var section = path.join('-');
@@ -139,12 +139,9 @@
             $('#yii-debug-toolbar-switcher').bind('click',$.proxy( this.toggleToolbar, this ));
             $('.yii-debug-toolbar-button').bind('click',$.proxy( this.buttonClicked, this ));
             $('.yii-debug-toolbar-panel-close').bind('click',$.proxy( this.closeButtonClicked, this ));
-            $('#yii-debug-toolbar .collapsible').bind('click', function(){ yiiDebugToolbar.toggleSection($(this).attr('rel'), this); });
-            $('#yii-debug-toolbar .collapsible.collapsed').next().hide();
+            $('#yii-debug-toolbar .collapsible').bind('click', function(){ yiiDebugToolbar.toggleSection($(this).attr('id').replace('_', ' ').replace(/^/, '#'), this); });
+            $('#yii-debug-toolbar p.collapsible.collapsed').next().hide();
             $('#yii-debug-toolbar .yii-debug-toolbar-panel-content tbody tr').bind('click', function(){ $(this).toggleClass('selected'); });
-            // fix for hiding the log messages collapse
-            $("#yii-debug-toolbar-log .collapsible.collapsed").next().show();
-
         },
 
         toggleDetails: function(selector, cell){

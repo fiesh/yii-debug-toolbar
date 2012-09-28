@@ -62,12 +62,17 @@ class YiiDebugToolbarPanelServer extends YiiDebugToolbarPanel
         phpinfo(INFO_MODULES);
         $info = ob_get_clean();
 
-        preg_match('/<body>(.*?)<\/body>/msS', $info, $matches);
+	preg_match('/<body>(.*?)<\/body>/msS', $info, $matches);
 
         if (isset($matches[1]))
         {
             $content = preg_replace('/\s?class\="\w+"/', '', $matches[1]);
-            $content = str_replace(' border="0" cellpadding="3" width="600"', ' class="phpinfo"', $content);
+	    $content = str_replace(' border="0" cellpadding="3" width="600"', ' class="phpinfo"', $content);
+
+	    // Fix wrong phpinfo() output
+	    $content = str_replace('<font ', '<span ', $content);
+	    $content = str_replace('</font>', '</span>', $content);
+
             $content = explode("\n", $content);
             $counter = 0;
             foreach($content as &$row)

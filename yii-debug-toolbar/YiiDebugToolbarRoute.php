@@ -18,22 +18,16 @@
 class YiiDebugToolbarRoute extends CLogRoute
 {
 
-    public $_panels = array(
-        'YiiDebugToolbarPanelLogging',
-        'YiiDebugToolbarPanelSql',
+    private $_panels = array(
+        'YiiDebugToolbarPanelServer',
         'YiiDebugToolbarPanelRequest',
+        'YiiDebugToolbarPanelSettings',
         'YiiDebugToolbarPanelViewsRendering',
-        'YiiDebugToolbarPanelAjax',
-        // default below
-//        'YiiDebugToolbarPanelServer',
-//        'YiiDebugToolbarPanelRequest',
-//        'YiiDebugToolbarPanelSettings',
-//        'YiiDebugToolbarPanelViewsRendering',
-//        'YiiDebugToolbarPanelSql',
-//        'YiiDebugToolbarPanelLogging',
+        'YiiDebugToolbarPanelSql',
+        'YiiDebugToolbarPanelLogging',
     );
 
-    /** 
+    /**
      * The filters are given in an array, each filter being:
      * - a normal IP (192.168.0.10 or '::1')
      * - an incomplete IP (192.168.0.* or 192.168.0.)
@@ -47,6 +41,19 @@ class YiiDebugToolbarRoute extends CLogRoute
      * @var bool
      */
     public $openLastPanel = true;
+
+    /**
+     * Whitelist for response content types. DebugToolbarRoute won't write any
+     * output if the server generates output that isn't listed here (json, xml,
+     * files, ...)
+     * @var array of content type strings (in lower case)
+     */
+    public $contentTypeWhitelist = array(
+      // Yii framework doesn't seem to send content-type header by default.
+      '',
+      'text/html',
+      'application/xhtml+xml',
+    );
 
     private $_toolbarWidget,
             $_startTime,
@@ -91,20 +98,6 @@ class YiiDebugToolbarRoute extends CLogRoute
                 'class'=>'YiiDebugToolbar',
                 'panels'=> $this->panels
             ), $this);
-
-
-            if(!empty($this->additionalPanels) and is_array($this->additionalPanels))
-            {
-                foreach($this->additionalPanels as $panel)
-                {
-                    $pos = 'append';
-                    if(($dotpos=strpos($panel, ':'))!==false){
-                            $pos = substr($panel, 0, $dotpos) == 'prepend' ? 'prepend' : 'append';
-                            $panel = substr($panel, $dotpos+1);
-                    }
-                    $this->_toolbarWidget->{$pos.'Panel'}($panel);
-                }
-            }
         }
         return $this->_toolbarWidget;
     }
@@ -189,7 +182,24 @@ class YiiDebugToolbarRoute extends CLogRoute
     protected function processLogs($logs)
     {
         $this->_endTime = microtime(true);
+        // disable log route based on white list
+        $this->enabled = $this->enabled && $this->checkContentTypeWhitelist();
         $this->enabled && $this->getToolbarWidget()->run();
+    }
+
+    private function checkContentTypeWhitelist()
+    {
+      $contentType = '';
+
+      foreach (headers_list() as $header) {
+        list($key, $value) = explode(': ', $header);
+        if (strtolower($key) === 'content-type') {
+          $contentType = strtolower($value);
+          break;
+        }
+      }
+
+      return in_array( $contentType, $this->contentTypeWhitelist );
     }
 
     /**

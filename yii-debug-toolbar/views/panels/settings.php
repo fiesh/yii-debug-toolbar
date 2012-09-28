@@ -1,8 +1,9 @@
+<?php if(!empty($application)): ?>
 <h4 class="collapsible"><?php echo YiiDebug::t('Application Properties')?></h4>
 <table>
     <thead>
         <tr>
-            <th width="180"><?php echo YiiDebug::t('Property')?></th>
+            <th style="width: 180;"><?php echo YiiDebug::t('Property')?></th>
             <th><?php echo YiiDebug::t('Value')?></th>
         </tr>
     </thead>
@@ -15,12 +16,14 @@
         <?php ++$c; endforeach;?>
     </tbody>
 </table>
+<?php endif; ?>
 
+<?php if(!empty($modules)): ?>
 <h4 class="collapsible"><?php echo YiiDebug::t('Modules')?></h4>
 <table>
     <thead>
         <tr>
-            <th width="180"><?php echo YiiDebug::t('Module ID')?></th>
+            <th style="width: 180;"><?php echo YiiDebug::t('Module ID')?></th>
             <th><?php echo YiiDebug::t('Configuration')?></th>
         </tr>
     </thead>
@@ -33,12 +36,14 @@
         <?php ++$c; endforeach;?>
     </tbody>
 </table>
+<?php endif; ?>
 
+<?php if(!empty($params)): ?>
 <h4 class="collapsible"><?php echo YiiDebug::t('Application Params')?></h4>
 <table>
     <thead>
         <tr>
-            <th width="180"><?php echo YiiDebug::t('Name')?></th>
+            <th style="width: 180;"><?php echo YiiDebug::t('Name')?></th>
             <th><?php echo YiiDebug::t('Value')?></th>
         </tr>
     </thead>
@@ -51,12 +56,14 @@
         <?php ++$c; endforeach;?>
     </tbody>
 </table>
+<?php endif; ?>
 
+<?php if(!empty($components)): ?>
 <h4 class="collapsible"><?php echo YiiDebug::t('Components')?></h4>
 <table>
     <thead>
         <tr>
-            <th width="180"><?php echo YiiDebug::t('Component ID')?></th>
+            <th style="width: 180;"><?php echo YiiDebug::t('Component ID')?></th>
             <th><?php echo YiiDebug::t('Configuration')?></th>
         </tr>
     </thead>
@@ -69,3 +76,4 @@
         <?php ++$c; endforeach;?>
     </tbody>
 </table>
+<?php endif; ?>

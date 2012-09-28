@@ -69,7 +69,7 @@ class YiiDebugToolbarPanelViewsRendering extends YiiDebugToolbarPanel
 
     public function getFileAlias($file)
     {
-        return str_replace(DIRECTORY_SEPARATOR, '.',
+        return str_replace(DIRECTORY_SEPARATOR, '.', 
                 dirname(trim(str_replace(Yii::getPathOfAlias('webroot'), '', $file), '\\/')) . '/'
                 . basename(trim(str_replace(Yii::getPathOfAlias('webroot'), '', $file), '\\/'), '.php'));
     }
@@ -77,7 +77,7 @@ class YiiDebugToolbarPanelViewsRendering extends YiiDebugToolbarPanel
 
     public function getWidgetsData()
     {
-
+        
     }
 
      /**
@@ -85,7 +85,15 @@ class YiiDebugToolbarPanelViewsRendering extends YiiDebugToolbarPanel
      */
     public function getMenuTitle()
     {
-        return YiiDebug::t('<span>{count}</span> views', array(
+        return YiiDebug::t('Views Rendering');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMenuSubTitle()
+    {
+        return YiiDebug::t('{count} views', array(
             '{count}'=>$this->viewsCount
         ));
     }

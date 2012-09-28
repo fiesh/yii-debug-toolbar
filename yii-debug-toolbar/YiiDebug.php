@@ -26,8 +26,12 @@ class YiiDebug extends CComponent
      */
     public static function dump($var, $depth=10)
     {
-        is_string($var) && $var = trim($var);
-        echo str_replace('&nbsp;', ' ', CVarDumper::dumpAsString($var, $depth, true));
+	is_string($var) && $var = trim($var);
+	// I do not know what the next line was good for, makes things look ugly...
+	//$x = str_replace('&nbsp;', ' ', CVarDumper::dumpAsString($var, $depth, true));
+	$x = CVarDumper::dumpAsString($var, $depth, true);
+	// Now remove empty <span>'s as they are not HTML 4.01 conforming.  Thanks a bunch PHP for rendering incorrect output.
+	echo preg_replace('/<span[^>]*><\/span>/', '', $x);
     }
 
     /**

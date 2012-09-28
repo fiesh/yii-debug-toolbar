@@ -3,22 +3,22 @@
     <thead>
         <tr>
             <th><?php echo Yii::t('yii-debug-toolbar','Query')?></th>
-            <th nowrap="nowrap"><?php echo Yii::t('yii-debug-toolbar','Count')?></th>
-            <th nowrap="nowrap"><?php echo Yii::t('yii-debug-toolbar','Total (s)')?></th>
-            <th nowrap="nowrap"><?php echo Yii::t('yii-debug-toolbar','Avg. (s)')?></th>
-            <th nowrap="nowrap"><?php echo Yii::t('yii-debug-toolbar','Min. (s)')?></th>
-            <th nowrap="nowrap"><?php echo Yii::t('yii-debug-toolbar','Max. (s)')?></th>
+            <th style="white-spaces: no-wrap;"><?php echo Yii::t('yii-debug-toolbar','Count')?></th>
+            <th style="white-spaces: no-wrap;"><?php echo Yii::t('yii-debug-toolbar','Total (s)')?></th>
+            <th style="white-spaces: no-wrap;"><?php echo Yii::t('yii-debug-toolbar','Avg. (s)')?></th>
+            <th style="white-spaces: no-wrap;"><?php echo Yii::t('yii-debug-toolbar','Min. (s)')?></th>
+            <th style="white-spaces: no-wrap;"><?php echo Yii::t('yii-debug-toolbar','Max. (s)')?></th>
         </tr>
     </thead>
     <tbody>
     <?php foreach($summary as $id=>$entry):?>
         <tr class="<?php echo ($id%2?'odd':'even') ?><?php echo ($entry[1]>$this->countLimit || ($entry[4]/$entry[1] > $this->timeLimit) ?' warning':'') ?>">
-            <td width="100%"><?php echo $entry[0]; ?></td>
-            <td nowrap="nowrap" style="text-align: center;"><?php echo number_format($entry[1]); ?></td>
-            <td nowrap="nowrap"><?php echo sprintf('%0.6F',$entry[4]); ?></td>
-            <td nowrap="nowrap"><?php echo sprintf('%0.6F',$entry[4]/$entry[1]); ?></td>
-            <td nowrap="nowrap"><?php echo sprintf('%0.6F',$entry[2]); ?></td>
-            <td nowrap="nowrap"><?php echo sprintf('%0.6F',$entry[3]);?></td>
+            <td style="width: 100%;"><?php echo $entry[0]; ?></td>
+            <td style="text-align: center; white-space: no-wrap"><?php echo number_format($entry[1]); ?></td>
+            <td style="white-space: no-wrap"><?php echo sprintf('%0.6F',$entry[4]); ?></td>
+            <td style="white-space: no-wrap"><?php echo sprintf('%0.6F',$entry[4]/$entry[1]); ?></td>
+            <td style="white-space: no-wrap"><?php echo sprintf('%0.6F',$entry[2]); ?></td>
+            <td style="white-space: no-wrap"><?php echo sprintf('%0.6F',$entry[3]);?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
