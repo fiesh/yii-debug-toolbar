@@ -1,0 +1,10 @@
+To use the this XHtml compliant version of the YiiDebugToolbar, install it as usual.
+Then make sure your main layout ends like this:
+
+```<?php if(!defined('YII_DEBUG')) { echo '</body>'; echo '</html>'; }?>```
+
+So in debug mode, it will not output </body></html>.  This is done by YiiDebugToolbar now.
+
+Known issues:
+
+The SQL window appears to be not initialized 100% correctly.
