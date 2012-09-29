@@ -139,7 +139,7 @@
             $('#yii-debug-toolbar-switcher').bind('click',$.proxy( this.toggleToolbar, this ));
             $('.yii-debug-toolbar-button').bind('click',$.proxy( this.buttonClicked, this ));
             $('.yii-debug-toolbar-panel-close').bind('click',$.proxy( this.closeButtonClicked, this ));
-            $('#yii-debug-toolbar .collapsible').bind('click', function(){ yiiDebugToolbar.toggleSection($(this).attr('id').replace('_', ' ').replace(/^/, '#'), this); });
+            $('#yii-debug-toolbar .collapsible').bind('click', function(){ yiiDebugToolbar.toggleSection(($(this).attr('id') == undefined ? undefined : $(this).attr('id').replace('_', ' ').replace(/^/, '#')), this); });
             $('#yii-debug-toolbar p.collapsible.collapsed').next().hide();
             $('#yii-debug-toolbar .yii-debug-toolbar-panel-content tbody tr').bind('click', function(){ $(this).toggleClass('selected'); });
         },
