@@ -1,9 +1,23 @@
 To use the this XHtml compliant version of the YiiDebugToolbar, install it as usual.
 Then make sure your main layout ends like this:
 
-```<?php if(!defined('YII_DEBUG')) { echo '</body>'; echo '</html>'; }?>```
+```
+<?php if(!YII_DEBUG) { echo '</body>'; echo '</html>'; }?>
+<?php // Add closing tags if debug toolbar is not loaded
+if(YII_DEBUG) {
+  $add = TRUE;
+	foreach(Yii::app()->getEventHandlers('onBeginRequest') as $obj) {
+		if(get_class($obj[0]) === 'YiiDebugToolbarRoute') {
+			$add = FALSE;
+			break;
+		}
+	}
+	if($add)
+		echo '</body></html>';
+} ?>
+```
 
-So in debug mode, it will not output </body></html>.  This is done by YiiDebugToolbar now.
+So in debug mode, if the debug toolbar is loaded, it will not output </body></html>.  This is done by YiiDebugToolbar now.
 
 Known issues:
 
